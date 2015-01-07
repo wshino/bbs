@@ -1,0 +1,18 @@
+@(boards: List[Board.Board])(boardForm: Form[Board.BoardData])
+
+<h1>board list</h1>
+@if(boards.size == 0){
+    <ul>no board</ul>
+} else {
+    <ul>
+    @for(b <- boards) {
+        <li><a href="/show/@b.id">@b.title</a></li>
+    }
+    </ul>
+}
+
+ @helper.form(action = routes.Board.create()) {
+     @helper.inputText(boardForm("title"))
+     <input type="submit">
+ }
+
