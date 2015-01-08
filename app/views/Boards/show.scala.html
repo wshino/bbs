@@ -1,6 +1,6 @@
-@(b: Board.Board)(commentForm: Form[Board.CommentData])
+@(b: Storage.Board)(commentForm: Form[CommentController.CommentData])
 
-<a href="@routes.Board.index()">index</a>
+<a href="@routes.BoardController.index()">index</a>
 
 <h1>@b.title</h1>
 <ul>
@@ -10,7 +10,7 @@
     }
 </ul>
 
-@helper.form(action = routes.Board.add()) {
+@helper.form(action = routes.CommentController.create()) {
     @helper.inputText(commentForm("comment"))
     <input type="hidden" name="id" value="@b.id" />
     <input type="submit">

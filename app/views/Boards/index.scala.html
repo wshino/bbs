@@ -1,4 +1,5 @@
-@(boards: List[Board.Board])(boardForm: Form[Board.BoardData])
+@(boards: List[Storage.Board])(boardForm: Form[BoardController.BoardData])
+
 
 <h1>board list</h1>
 @if(boards.size == 0){
@@ -6,12 +7,12 @@
 } else {
     <ul>
     @for(b <- boards) {
-        <li><a href="/show/@b.id">@b.title</a></li>
+        <li><a href="@routes.BoardController.show(b.id)">@b.title</a></li>
     }
     </ul>
 }
 
- @helper.form(action = routes.Board.create()) {
+ @helper.form(action = routes.BoardController.create()) {
      @helper.inputText(boardForm("title"))
      <input type="submit">
  }
