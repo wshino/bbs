@@ -1,5 +1,6 @@
 package controllers
 
+import models.Board
 import org.joda.time.DateTime
 import play.api.data.Form
 import play.api.data.Forms._
@@ -20,23 +21,23 @@ object CommentController extends Controller {
     )(CommentData.apply)(CommentData.unapply)
   )
 
-  def create = Action { implicit request =>
-
-    val commentData = commentForm.bindFromRequest.get
-
-    val res = boards.map { x =>
-      x match {
-        case f if f.id == commentData.id => {
-          val newcomments = (Comment.apply(commentData.comment, new DateTime()) :: f.comment).reverse
-          val newBoard = Board.apply(id = x.id, title = x.title, comment = newcomments)
-          newBoard
-        }
-        case _ => x
-      }
-
-    }
-    boards = res
-    Redirect(routes.BoardController.show(commentData.id))
-  }
+//  def create = Action { implicit request =>
+//
+//    val commentData = commentForm.bindFromRequest.get
+//
+//    val res = boards.map { x =>
+//      x match {
+//        case f if f.id == commentData.id => {
+//          val newcomments = (Comment.apply(commentData.comment, new DateTime()) :: f.comment).reverse
+//          val newBoard = Board.apply(id = x.id, title = x.title, comment = newcomments)
+//          newBoard
+//        }
+//        case _ => x
+//      }
+//
+//    }
+//    boards = res
+//    Redirect(routes.BoardController.show(commentData.id))
+//  }
 
 }

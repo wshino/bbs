@@ -1,5 +1,6 @@
 package controllers
 
+import models.Board
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc._
@@ -18,14 +19,12 @@ object BoardController extends Controller {
 
   def index = Action {
     implicit request =>
-      Ok(views.html.Boards.index(boards)(boardForm))
+      Ok(views.html.Boards.index(Board.findAll())(boardForm))
   }
 
   def create = Action { implicit request =>
     val boardData = boardForm.bindFromRequest.get
-
-    val created = Board.apply(boards.size + 1, boardData.title, List())
-    boards = created :: boards
+    val created = Board.create(Board.apply(0, boardData.title))
     Redirect(routes.BoardController.show(created.id))
   }
 
