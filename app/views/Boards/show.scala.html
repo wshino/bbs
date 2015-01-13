@@ -1,12 +1,11 @@
-@(b: Board)(commentForm: Form[CommentController.CommentData])
+@(b: BoardWithCommentsResponse)(commentForm: Form[CommentController.CommentData])
 
 <a href="@routes.BoardController.index()">index</a>
 
-<h1>@b.title</h1>
+<h1>@b.board.title</h1>
 
-@*********
 <ul>
-@for(c <- b.comment) {
+@for(c <- b.comments) {
 <h3>@c.createdAt.toString("yyyy-MMM-dd HH:mm:ss")</h3>
 @c.text
 }
@@ -14,8 +13,7 @@
 
 @helper.form(action = routes.CommentController.create()) {
 @helper.inputText(commentForm("comment"))
-<input type="hidden" name="id" value="@b.id" />
+<input type="hidden" name="id" value="@b.board.id" />
 <input type="submit">
 }
 
-******@

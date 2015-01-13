@@ -1,6 +1,5 @@
 package models
 
-import models.Storage.Comment
 import scalikejdbc._
 
 /**
@@ -13,10 +12,10 @@ case class Board(id: Long, title: String){
 
 object Board extends SQLSyntaxSupport[Board] {
 
-  def apply(c: SyntaxProvider[Board])(rs: WrappedResultSet): Board = apply(c.resultName)(rs)
-  def apply(c: ResultName[Board])(rs: WrappedResultSet): Board = new Board(
-    id = rs.get(c.id),
-    title = rs.get(c.title)
+  def apply(b: SyntaxProvider[Board])(rs: WrappedResultSet): Board = apply(b.resultName)(rs)
+  def apply(b: ResultName[Board])(rs: WrappedResultSet): Board = new Board(
+    id = rs.get(b.id),
+    title = rs.get(b.title)
   )
 
   val b = Board.syntax("b")

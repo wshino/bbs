@@ -1,6 +1,6 @@
 package controllers
 
-import models.Board
+import models.{BoardWithCommentsResponse, Board}
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc._
@@ -34,7 +34,7 @@ object BoardController extends Controller {
   }
 
   def show(id: Long) = Action {
-    Board.find(id) match {
+    BoardWithCommentsResponse.find(id) match {
       case Some(x) => Ok(views.html.Boards.show(x)(commentForm))
       case None => Redirect(routes.BoardController.index())
     }
