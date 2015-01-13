@@ -34,8 +34,7 @@ object BoardController extends Controller {
   }
 
   def show(id: Long) = Action {
-    val res = boards.filter(_.id == id).headOption
-    res match {
+    Board.find(id) match {
       case Some(x) => Ok(views.html.Boards.show(x)(commentForm))
       case None => Redirect(routes.BoardController.index())
     }

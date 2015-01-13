@@ -19,16 +19,16 @@ object Board extends SQLSyntaxSupport[Board] {
     title = rs.get(c.title)
   )
 
-  val c = Board.syntax("c")
+  val b = Board.syntax("b")
 
   def find(id: Long)(implicit session: DBSession = autoSession): Option[Board] = withSQL {
-    select.from(Board as c).where.eq(c.id, id)
-  }.map(Board(c)).single.apply()
+    select.from(Board as b).where.eq(b.id, id)
+  }.map(Board(b)).single.apply()
 
   def findAll()(implicit session: DBSession = autoSession): List[Board] = withSQL {
-    select.from(Board as c)
-      .orderBy(c.id)
-  }.map(Board(c)).list.apply()
+    select.from(Board as b)
+      .orderBy(b.id)
+  }.map(Board(b)).list.apply()
 
   def save(m: Board)(implicit session: DBSession = autoSession): Board = {
     withSQL {
